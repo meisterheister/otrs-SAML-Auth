@@ -1,14 +1,32 @@
 # --
-# Kernel/System/CustomerAuth/HTTPBasicAuthMellon.pm
+# Copyright (C) 2001-2018 OTRS AG, https://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
+# --
 # Provides HTTPBasic authentication for use with Apache's mod_auth_mellon.
 # This module auto-provisions customer users.
 # Dick Visser <visser@terena.org> 2014-08-22
-# Updated to function with OTRS 6 Rick H. 2018-09-14
 # Copyright (C) TERENA, http://www.terena.org
-# --
-# This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+#
+# Updated to function with OTRS 6 Rick H. <heisterhagen@interlake.net> 2018-09-14
+#
+# Note:
+#
+# If you use this module, you have to copy the following config settings
+# to Kernel/Config.pm and adjust the URI:
+# $Self->{'Customer::AuthModule'} = 'Kernel::System::CustomerAuth::HTTPBasicAuthMellon';
+# $Self->{'CustomerPanelLoginURL'} = 'https://otrs.example.net/mellon/login?ReturnTo=/index.pl';
+# $Self->{'CustomerPanelLogoutURL'} = 'https://otrs.example.net/mellon/logout?ReturnTo=http://example.com';
+#
+# Copy the following lines to Kernel/Config.pm override the environment vars to be used
+# and add your SAML attribute name:
+# $Self->{'Customer::AuthModule::HTTPBasicAuthMellon::UsernameEnvVar'} = 'MELLON_<SAML_ATTRIBUTE_USERNAME>';
+# $Self->{'Customer::AuthModule::HTTPBasicAuthMellon::MailEnvVar'} = 'MELLON_<SAML_ATTRIBUTE_MAIL>';
+# $Self->{'Customer::AuthModule::HTTPBasicAuthMellon::FirstNameEnvVar'} = 'MELLON_<SAML_ATTRIBUTE_GIVENNAME>';
+# $Self->{'Customer::AuthModule::HTTPBasicAuthMellon::LastNameEnvVar'} = 'MELLON_<SAML_ATTRIBUTE_SURNAME>';
+# $Self->{'Customer::AuthModule::HTTPBasicAuthMellon::CustomerIDEnvVar'} = 'MELLON_<SAMl_ATTRIBUTE_ID>';
 # --
 package Kernel::System::CustomerAuth::HTTPBasicAuthMellon;
 use strict;
